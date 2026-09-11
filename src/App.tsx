@@ -10,7 +10,12 @@ const NAV_ITEMS = [
 
 const NAV_DELAYS = [350, 450, 550, 650];
 
-const WHATSAPP_URL = 'https://wa.me/919014276276';
+const WHATSAPP_NUMBER = '447734566688';
+const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
+
+function buildWhatsAppMessageUrl(text: string) {
+  return `${WHATSAPP_URL}?text=${encodeURIComponent(text)}`;
+}
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -112,25 +117,19 @@ const labelClass =
 const glassInputClass =
   'w-full rounded-[16px] border border-white/15 bg-white/[0.07] text-white font-manrope text-[13px] leading-[15.6px] px-[12px] py-[10px] outline-none placeholder:text-white/45 backdrop-blur-[14px] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] focus:border-[#AFDDFF]/60 focus:bg-white/[0.10] focus:shadow-[0_0_0_3px_rgba(175,221,255,0.10),inset_0_1px_0_rgba(255,255,255,0.12)] transition-all duration-200';
 
-const FORMSPREE_FORM_ID = import.meta.env.VITE_FORMSPREE_FORM_ID;
-
 function ContactModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [form, setForm] = useState(EMPTY_CONTACT);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState('');
 
   const close = () => {
     setForm(EMPTY_CONTACT);
     setErrors({});
     setSubmitted(false);
-    setSubmitting(false);
-    setSubmitError('');
     onClose();
   };
 
-  const handleSubmit = async (event: FormEvent) => {
+  const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     const next: Record<string, string> = {};
     if (!form.firstName.trim()) next.firstName = 'First name is required';
@@ -141,48 +140,18 @@ function ContactModal({ open, onClose }: { open: boolean; onClose: () => void })
     setErrors(next);
     if (Object.keys(next).length) return;
 
-    if (!FORMSPREE_FORM_ID) {
-      setSubmitError('Form is not configured. Add VITE_FORMSPREE_FORM_ID to your environment.');
-      return;
-    }
+    const text = [
+      'Hello, I would like to get in touch.',
+      '',
+      `First name: ${form.firstName.trim()}`,
+      `Last name: ${form.lastName.trim() || '—'}`,
+      `Phone number: ${form.phone.trim()}`,
+      `Mail id: ${form.email.trim()}`,
+      `Message: ${form.message.trim() || '—'}`,
+    ].join('\n');
 
-    setSubmitting(true);
-    setSubmitError('');
-
-    try {
-      const response = await fetch(`https://formspree.io/f/${FORMSPREE_FORM_ID}`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          firstName: form.firstName.trim(),
-          lastName: form.lastName.trim(),
-          phone: form.phone.trim(),
-          email: form.email.trim(),
-          message: form.message.trim(),
-          _replyto: form.email.trim(),
-          _subject: `Contact form — ${form.firstName.trim()} ${form.lastName.trim()}`.trim(),
-        }),
-      });
-
-      const data = await response.json().catch(() => null);
-
-      if (!response.ok) {
-        const message =
-          data && typeof data === 'object' && 'error' in data && typeof data.error === 'string'
-            ? data.error
-            : 'Something went wrong. Please try again.';
-        throw new Error(message);
-      }
-
-      setSubmitted(true);
-    } catch (error) {
-      setSubmitError(error instanceof Error ? error.message : 'Something went wrong. Please try again.');
-    } finally {
-      setSubmitting(false);
-    }
+    window.open(buildWhatsAppMessageUrl(text), '_blank', 'noopener,noreferrer');
+    setSubmitted(true);
   };
 
   return (
@@ -221,7 +190,7 @@ function ContactModal({ open, onClose }: { open: boolean; onClose: () => void })
 
           {submitted ? (
             <p className="font-manrope text-white text-[14px] leading-[20px] rounded-[20px] bg-white/[0.07] border border-white/15 px-[18px] py-[16px] backdrop-blur-[12px]">
-              Thanks — we received your message and will get back to you.
+              WhatsApp is opening — please tap Send to deliver your message.
             </p>
           ) : (
             <form className="flex flex-col gap-[15px]" onSubmit={handleSubmit} noValidate>
@@ -308,18 +277,11 @@ function ContactModal({ open, onClose }: { open: boolean; onClose: () => void })
                 <span className="font-manrope text-[#FFB4B4] text-[11px] -mt-[7px]">{errors.agreed}</span>
               )}
 
-              {submitError && (
-                <span className="font-manrope text-[#FFB4B4] text-[12px] leading-[16px] rounded-[12px] bg-[#FFB4B4]/[0.06] border border-[#FFB4B4]/15 px-[12px] py-[8px]">
-                  {submitError}
-                </span>
-              )}
-
               <button
                 type="submit"
-                disabled={submitting}
-                className="mt-[7px] w-full rounded-full border border-white/30 bg-[#AFDDFF] hover:bg-[#c8e8ff] disabled:opacity-60 disabled:cursor-not-allowed transition-all duration-300 px-[20px] py-[13px] font-manrope text-black text-[13px] leading-[15.6px] font-semibold uppercase tracking-[0.12em] shadow-[0_8px_30px_rgba(175,221,255,0.18),inset_0_1px_0_rgba(255,255,255,0.65)] hover:shadow-[0_10px_35px_rgba(175,221,255,0.30),inset_0_1px_0_rgba(255,255,255,0.75)]"
+                className="mt-[7px] w-full rounded-full border border-white/30 bg-[#AFDDFF] hover:bg-[#c8e8ff] transition-all duration-300 px-[20px] py-[13px] font-manrope text-black text-[13px] leading-[15.6px] font-semibold uppercase tracking-[0.12em] shadow-[0_8px_30px_rgba(175,221,255,0.18),inset_0_1px_0_rgba(255,255,255,0.65)] hover:shadow-[0_10px_35px_rgba(175,221,255,0.30),inset_0_1px_0_rgba(255,255,255,0.75)]"
               >
-                {submitting ? 'Sending…' : 'Submit'}
+                Submit
               </button>
             </form>
           )}
