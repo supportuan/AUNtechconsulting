@@ -2,8 +2,8 @@ import { useState, type FormEvent } from 'react';
 import { Menu, X } from 'lucide-react';
 
 const NAV_ITEMS = [
-  { number: '01', label: 'ApplyUniNow', href: 'https://applyuninow.com/', font: 'font-poppins' },
-  { number: '02', label: 'ApplyUniLoans', href: 'https://applyuniloans.com/', font: 'font-poppins' },
+  { number: '01', label: 'ApplyUniNow', href: 'https://applyuninow.com/', font: 'font-comfortaa' },
+  { number: '02', label: 'ApplyUniLoans', href: 'https://applyuniloans.com/', font: 'font-comfortaa' },
   { number: '03', label: 'ApplyUniHomes', href: 'https://applyunihomes.com/', font: 'font-comfortaa' },
   { number: '04', label: 'ApplyUniJobs', href: 'https://applyunijobs.com/', font: 'font-comfortaa' },
 ] as const;
@@ -184,7 +184,7 @@ function ContactModal({ open, onClose }: { open: boolean; onClose: () => void })
             <X className="w-[18px] h-[18px] text-white" strokeWidth={1.5} />
           </button>
 
-          <h3 className="font-graphik text-white text-[22px] md:text-[28px] leading-[1.1] mb-[24px] pr-[42px] tracking-[-0.02em]">
+          <h3 className="font-comfortaa text-white text-[22px] md:text-[28px] leading-[1.1] mb-[24px] pr-[42px] tracking-[-0.02em]">
             We'd love to hear
           </h3>
 
@@ -296,7 +296,7 @@ export default function App() {
   const [contactOpen, setContactOpen] = useState(false);
 
   return (
-    <section className="relative w-full h-screen overflow-hidden bg-black">
+    <section className="relative w-full h-[100dvh] min-h-[100dvh] overflow-hidden bg-black">
       <video
         className="absolute inset-0 w-full h-full object-cover anim-fade-in"
         src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260813_115057_94c3699b-0fd1-4124-bcf3-3626bb8c1f77.mp4"
@@ -307,14 +307,14 @@ export default function App() {
       />
 
       <div className="relative z-10 w-full h-full">
-        <nav className="absolute top-0 left-0 w-full flex items-center px-5 md:px-[35px] py-5 md:py-[27px]">
+        <nav className="absolute top-0 left-0 w-full flex items-center px-5 md:px-[35px] py-4 md:py-[27px]">
           <div className="flex items-center gap-[40px]">
             <div
               className="text-white text-[18px] md:text-[21px] leading-[21px] whitespace-nowrap anim-fade-up"
               style={{ animationDelay: '200ms' }}
             >
-              <span className="font-audiowide font-normal">AUN</span>
-              <span className="font-graphik">tech</span>
+              <span className="font-audiowide font-normal" style={{ color: '#FF5C00' }}>AUN</span>
+              <span className="font-comfortaa">tech</span>
             </div>
             <div className="hidden lg:flex items-center gap-[40px]">
               {NAV_ITEMS.map((item, i) => (
@@ -419,13 +419,13 @@ export default function App() {
         </div>
 
         <div
-          className="absolute top-[140px] sm:top-[160px] md:top-[178px] left-5 md:left-[35px] max-w-[300px] sm:max-w-[420px] md:max-w-[554px] flex flex-col gap-3 md:gap-4 anim-fade-up"
+          className="absolute top-[110px] sm:top-[160px] md:top-[178px] left-5 md:left-[35px] max-w-[300px] sm:max-w-[420px] md:max-w-[554px] flex flex-col gap-2 md:gap-4 anim-fade-up"
           style={{ animationDelay: '400ms' }}
         >
-          <h1 className="font-graphik text-white font-normal leading-[1em] text-[32px] sm:text-[48px] md:text-[68px]">
+          <h1 className="font-graphik text-white font-normal leading-[1em] text-[28px] sm:text-[48px] md:text-[68px]">
             The Vision of Engineering is HUMAN + AI.
           </h1>
-          <h2 className="font-graphik text-white/80 font-bold leading-[1.3] text-[16px] sm:text-[20px] md:text-[24px]">
+          <h2 className="font-graphik text-white/80 font-bold leading-[1.3] text-[14px] sm:text-[20px] md:text-[24px]">
             Simplify your 𝘞𝘰𝘳𝘬𝘧𝘭𝘰𝘸 and 𝘚𝘵𝘢𝘺 𝘍𝘰𝘤𝘶𝘴𝘦𝘥.
           </h2>
         </div>
@@ -433,16 +433,15 @@ export default function App() {
         <GridLines />
 
         <div className="absolute bottom-5 md:bottom-[35px] left-5 md:left-[35px] right-5 md:right-[35px] flex flex-col md:flex-row items-start md:items-end justify-between gap-5 md:gap-0">
-          <button
-            type="button"
-            onClick={() => setContactOpen(true)}
-            className="bg-[#AFDDFF] px-[16px] md:px-[20px] py-[10px] md:py-[12px] flex items-center gap-[10px] hover:bg-[#c8e8ff] transition-colors anim-fade-up border-0 cursor-pointer"
-            style={{ animationDelay: '900ms' }}
-          >
-            <span className="text-black text-[16px] leading-none">&#10022;</span>
-            <span className="font-manrope text-black text-[12px] md:text-[13px] leading-[15.6px] uppercase tracking-wide">
-              We'd love to hear.           </span>
-          </button>
+        <button
+        type="button"
+        onClick={() => setContactOpen(true)}
+        className="bg-[#AFDDFF] px-[16px] md:px-[20px] py-[10px] md:py-[12px] flex items-center gap-[10px] hover:bg-[#c8e8ff] transition-colors anim-fade-up border-0 cursor-pointer"
+        style={{ animationDelay: '900ms' }}>
+          <span className="text-black text-[16px] leading-none">&#10022;</span>
+          <span className="font-comfortaa text-black text-[12px] md:text-[13px] leading-[15.6px] uppercase tracking-wide">
+            We'd love to hear.           </span>
+            </button>
 
           <div className="relative max-w-[280px] hidden sm:block anim-slide-right" style={{ animationDelay: '1100ms' }}>
             <span className="font-manrope text-black text-[13px] leading-[15.6px] bg-[#AFDDFF] px-[6px] py-[2px] inline-block mb-[10px]">
@@ -461,13 +460,16 @@ export default function App() {
                   vectorEffect="non-scaling-stroke"
                 />
               </svg>
-              <p className="relative font-manrope text-white text-[13px] leading-[18px] mb-[18px]">
+              <p className="relative font-comfortaa text-white text-[13px] leading-[18px] mb-[18px]">
                 Hold up we're Glow-ing up,
                 
               </p>
-              <p className="relative font-manrope text-white text-[13px] leading-[18px] mb-[18px]">
+              <p className="relative font-comfortaa text-white text-[13px] leading-[18px] mb-[18px]">
                 
                 Page is getting a facelift.
+              </p>
+              <p className='relative font-comfortaa text-white text-[8px] leading-[18px] mb-[18px]'>
+              © AUN Tech Consulting (P) Ltd. All rights reserved.
               </p>
               
             </div>
